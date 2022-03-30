@@ -18,17 +18,14 @@ public class JpaMain {
         tx.begin(); // [트랜잭션] 시작
 
         try {
-            Member member1 = new Member(150L, "A");
-            Member member2 = new Member(160L, "B");
+            Member member = em.find(Member.class, 150L); // 찾아온다음
+            member.setName("zzzzz"); // 수정
 
-            em.persist(member1);
-            em.persist(member2);
-            // 여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.
-            // 이때 쿼리를 보내게 될 경우 최적화 할 수 있는 기회조차 없다.
-            System.out.println("===============");
+            //em.persist(member); JPA 목적은 자바 collection 다루듯이 객체를 다루는 것 인데 생각해보면 List에서 값을 꺼내고 값을 변경하고 다시 집어넣는가? X
 
-            //커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
-            tx.commit(); // [트랜잭션] 커밋
+            System.out.println("=============");
+
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
