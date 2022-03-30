@@ -17,13 +17,13 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member(200L, "member200");
-            em.persist(member); // 이 때 영속성 컨텍스트에 member가 담기고 , 쿼리가 쓰기 지연 SQL저장소에 담겨있다.
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAA");
 
-            em.flush(); // DB에 insert 쿼리가 이 시점에 바로 날아간다. => DB에 반영
-            
-            // Q. flush를 할 경우 1차캐시가 다 지워지나요?
-            // => 아니요! 1차캐쉬는 다 유지가 됩니다.
+//          em.detach(member); // 특정 엔티티만 준영속 상태로 전환
+//          em.close(); // 영속성 컨텍스트를 종료
+            em.clear(); // 1차캐시를 통으로 날리는 것
+            Member member2 = em.find(Member.class, 150L);
 
             System.out.println("=============");
             tx.commit();
