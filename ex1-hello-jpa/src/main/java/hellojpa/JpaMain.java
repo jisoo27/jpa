@@ -19,18 +19,20 @@ public class JpaMain {
         try {
             // 비영속
             Member member = new Member();
-            member.setId(100L);
+            member.setId(101L);
             member.setName("HelloJPA");
 
             //영속
+            System.out.println("=== BEFORE ===");
+
+            // 1차 캐시에 저장됨
             em.persist(member);
 
-            //준영속
-            em.detach(member);
+            System.out.println("=== AFTER ===");
 
-            //객체를 삭제한 상태(삭제)
-            em.remove(member);
-            
+            //1차 캐시에서 조회
+            Member member1 = em.find(Member.class, 101L);
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
