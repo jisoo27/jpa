@@ -14,17 +14,18 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
-        // 엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다.
-        tx.begin(); // [트랜잭션] 시작
+        tx.begin();
 
         try {
-            Member member = em.find(Member.class, 150L); // 찾아온다음
-            member.setName("zzzzz"); // 수정
+            Member member = new Member(200L, "member200");
+            em.persist(member); // 이 때 영속성 컨텍스트에 member가 담기고 , 쿼리가 쓰기 지연 SQL저장소에 담겨있다.
 
-            //em.persist(member); JPA 목적은 자바 collection 다루듯이 객체를 다루는 것 인데 생각해보면 List에서 값을 꺼내고 값을 변경하고 다시 집어넣는가? X
+            em.flush(); // DB에 insert 쿼리가 이 시점에 바로 날아간다. => DB에 반영
+            
+            // Q. flush를 할 경우 1차캐시가 다 지워지나요?
+            // => 아니요! 1차캐쉬는 다 유지가 됩니다.
 
             System.out.println("=============");
-
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
