@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
+
 
 public class JpaMain {
 
@@ -25,6 +25,12 @@ public class JpaMain {
             //영속
             em.persist(member);
 
+            //준영속
+            em.detach(member);
+
+            //객체를 삭제한 상태(삭제)
+            em.remove(member);
+            
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
