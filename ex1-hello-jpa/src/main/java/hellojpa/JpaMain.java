@@ -17,21 +17,10 @@ public class JpaMain {
         tx.begin();
 
         try {
-            // 비영속
-            Member member = new Member();
-            member.setId(101L);
-            member.setName("HelloJPA");
+            Member findMember1 = em.find(Member.class, 101L);
+            Member findMember2 = em.find(Member.class, 101L);
 
-            //영속
-            System.out.println("=== BEFORE ===");
-
-            // 1차 캐시에 저장됨
-            em.persist(member);
-
-            System.out.println("=== AFTER ===");
-
-            //1차 캐시에서 조회
-            Member member1 = em.find(Member.class, 101L);
+            System.out.println("result = " + (findMember1 == findMember2));
 
             tx.commit();
         } catch (Exception e) {
