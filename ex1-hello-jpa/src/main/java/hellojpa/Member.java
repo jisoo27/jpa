@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "name")
