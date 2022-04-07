@@ -17,21 +17,21 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member member1 = new Member();
             member1.setName("member1");
+            member1.setTeam(team);
             em.persist(member1);
 
             em.flush();
             em.clear();
 
-            Member refMember = em.getReference(Member.class, member1.getId());
-            System.out.println("refMember = " + refMember.getClass()); //Proxy
+            Member m = em.find(Member.class, member1.getId());
 
-            Member findMember = em.find(Member.class, member1.getId());
-            System.out.println("findMember = " + findMember.getClass());//Member
-
-
-            System.out.println("refMember == findMember : " + (refMember == findMember));
+            System.out.println("m = " + m.getTeam().getClass());
 
             tx.commit();
         } catch (Exception e) {
