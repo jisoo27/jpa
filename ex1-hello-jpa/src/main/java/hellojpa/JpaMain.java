@@ -33,6 +33,10 @@ public class JpaMain {
 
             System.out.println("m = " + m.getTeam().getClass());
 
+            System.out.println("=================");
+            System.out.println("teamName = " + m.getTeam().getName());
+            System.out.println("=================");
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
