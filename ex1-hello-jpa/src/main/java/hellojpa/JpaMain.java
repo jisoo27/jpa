@@ -38,16 +38,18 @@ public class JpaMain {
             System.out.println("=======================================");
             Member findMember = em.find(Member.class, member.getId());
 
-            List<Address> addressHisory = findMember.getAddressHistory();
-            for (Address address : addressHisory) {
-                System.out.println("address = " + address.getCity());
-            }
+            //homeCity -> newCity
+                // findMember.getHomeAddress().setCity("newCity");
 
-            Set<String> favoriteFoods = findMember.getFavoriteFoods();
-            for (String favoriteFood : favoriteFoods) {
-                System.out.println("favoriteFood = " + favoriteFood);
-            }
+            Address a = findMember.getHomeAddress();
+            findMember.setHomeAddress(new Address("newCity", a.getStreet(), a.getZipcode()));
 
+            // 치킨 -> 한식
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
+
+            findMember.getAddressHistory().remove(new Address("old", "street", "10000"));
+            findMember.getAddressHistory().add(new Address("old", "street", "10000"));
 
             tx.commit();
         } catch (Exception e) {
