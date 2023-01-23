@@ -1,7 +1,6 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -13,14 +12,14 @@ public class JpaMain {
         tx.begin();
 
         try {
-            List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(5) // 5~10 을 가져와라 -> 페이지네이션
-                    .setMaxResults(10)
-                    .getResultList();
 
-            for (Member member : resultList) {
-                System.out.println("member.getName() = " + member.getName());
-            }
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
+
+            em.persist(member1);
+            em.persist(member2);
+
+            System.out.println("=================");
 
             tx.commit();
         } catch (Exception e) {
