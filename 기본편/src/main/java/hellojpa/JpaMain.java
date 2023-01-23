@@ -12,9 +12,11 @@ public class JpaMain {
         tx.begin();
 
         try {
+
             Member member = em.find(Member.class, 150L);
-            member.setName("zzzz");
-            System.out.println("=================");
+            member.setName("ssss");
+
+            em.detach(member);
 
             tx.commit();
         } catch (Exception e) {
