@@ -12,14 +12,24 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team); // em.persist 하면 무조건 pk가 세팅 된다
+
             Member member = new Member();
-            member.setName("B");
-
-            System.out.println("=========");
+            member.setName("member1");
+            member.setTeam(team);
             em.persist(member);
-            System.out.println("member.getId() = " + member.getId());
-            System.out.println("=========");
 
+            em.flush();
+            em.clear();
+
+            Member findMember = em.find(Member.class, member.getId());
+
+            Team findTeam = findMember.getTeam();
+
+            System.out.println("findTeam.getName() = " + findTeam.getName());
+            
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
