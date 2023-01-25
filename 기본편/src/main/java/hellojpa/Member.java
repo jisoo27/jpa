@@ -25,5 +25,8 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
-
+    public void changeTeam(Team team) {
+        this.team = team;
+        team.getMembers().add(this); // 여기서 this 는 나 자신 instance
+    }
 }
