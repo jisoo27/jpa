@@ -29,4 +29,13 @@ public class Member {
         this.team = team;
         team.getMembers().add(this); // 여기서 this 는 나 자신 instance
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", team=" + team +
+                '}';
+    }
 }

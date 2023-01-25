@@ -20,5 +20,14 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy = "team")
-    private List<Member> members = new ArrayList<>(); // ArrayList를 넣어두면 null이 뜨지 않는다. -> 관례로 많이 사용
+    private List<Member> members = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", members=" + members +
+                '}';
+    }
 }
