@@ -3,6 +3,8 @@ package hellojpa;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,7 +29,8 @@ public class Member {
     private Locker locker;
 
 
-//    @Column(name = "TEAM_ID")
-//    private Long teamId;
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
 
 }
