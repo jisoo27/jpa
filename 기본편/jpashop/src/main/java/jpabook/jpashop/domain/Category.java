@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 public class Category extends BaseEntity{
 
@@ -14,7 +16,7 @@ public class Category extends BaseEntity{
     private String name;
 
     // 셀프로 양방향으로 잡힌 것 상위 카테고리와 하위 카테고리
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "PARENT_ID")
     private Category parent;
 
