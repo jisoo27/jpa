@@ -1,6 +1,7 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -12,20 +13,29 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
 
-            Member member = new Member();
-            member.setName("hello");
-            
-            em.persist(member);
-            
+            Team teamB = new Team();
+            teamB.setName("teamB");
+            em.persist(teamB);
+
+            Member member1 = new Member();
+            member1.setName("member1");
+            member1.setTeam(team);
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setName("member2");
+            member2.setTeam(teamB);
+            em.persist(member2);
+
             em.flush();
             em.clear();
-            
-            
-//            Member findMember = em.find(Member.class, member.getId());
-            Member findMember = em.getReference(Member.class, member.getId()); // 가짜 프록시 객체 조회
-            System.out.println("findMember.getName() = " + findMember.getName()); // 내부적으로 영속성 컨텍스트에 요청을 하여 내부에 실제 target에 대한 값을 알게 되면서 getName의 값을 조회할 수 있다.
 
+            //Member m = em.find(Member.class, member2.getId());
+            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
 
             tx.commit();
         } catch (Exception e) {
