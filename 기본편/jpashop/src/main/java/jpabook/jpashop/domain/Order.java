@@ -15,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @Setter
 @Table(name = "ORDERS")
-public class Order extends BaseEntity{
+public class Order {
 
     @Id @GeneratedValue
     @Column(name = "ORDER_ID")

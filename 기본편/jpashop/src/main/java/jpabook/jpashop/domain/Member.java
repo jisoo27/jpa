@@ -9,8 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter // 예제이기 때문에
-public class Member extends BaseEntity{
+public class Member {
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
@@ -21,11 +20,8 @@ public class Member extends BaseEntity{
 
     private String name;
 
-    private String city;
-
-    private String street;
-
-    private String zipcode;
+   @Embedded
+    private Address address;
 
 
 }
