@@ -14,26 +14,18 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
-
             Member member = new Member();
-            member.setAge(10);
-            member.setType(MemberType.ADMIN);
-            member.setTeam(team);
-
+            member.setUsername("관리자1");
             em.persist(member);
 
             em.flush();
             em.clear();
 
-            String query = "select locate('de', 'abcdegf') From Member m";
-            List<Integer> resultList
-                    = em.createQuery(query, Integer.class).getResultList();
+            String query = "select function('group_concat', m.username) From Member m";
+            List<String> resultList
+                    = em.createQuery(query, String.class).getResultList();
 
-            for (Integer s : resultList) {
+            for (String s : resultList) {
                 System.out.println("s = " + s);
             }
 
