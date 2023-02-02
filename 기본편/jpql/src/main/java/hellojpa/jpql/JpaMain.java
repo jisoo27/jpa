@@ -30,7 +30,7 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select 'a' || 'b' From Member m";
+            String query = "select substring(m.username, 2, 3) From Member m";
             List<String> resultList
                     = em.createQuery(query, String.class).getResultList();
 
