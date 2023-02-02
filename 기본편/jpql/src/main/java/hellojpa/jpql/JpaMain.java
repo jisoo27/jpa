@@ -1,6 +1,7 @@
 package hellojpa.jpql;
 
 import javax.persistence.*;
+import javax.persistence.criteria.From;
 import java.util.List;
 
 public class JpaMain {
@@ -29,7 +30,7 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-            String query = "select coalesce(m.username, '이름 없는 회원') from Member m ";
+            String query = "select 'a' || 'b' From Member m";
             List<String> resultList
                     = em.createQuery(query, String.class).getResultList();
 
