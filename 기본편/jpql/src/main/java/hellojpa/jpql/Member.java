@@ -2,8 +2,6 @@ package hellojpa.jpql;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Lazy;
-
 import javax.persistence.*;
 
 
@@ -23,6 +21,9 @@ public class Member {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    @Enumerated(EnumType.STRING)
+    private MemberType type;
 
     public void changeTeam(Team team) {
         this.team = team;
