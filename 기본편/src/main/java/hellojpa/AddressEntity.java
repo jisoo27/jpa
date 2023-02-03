@@ -1,7 +1,5 @@
 package hellojpa;
 
-import ch.qos.logback.core.spi.LifeCycle;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

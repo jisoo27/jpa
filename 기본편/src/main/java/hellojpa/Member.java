@@ -44,7 +44,7 @@ public class Member extends BaseEntity{
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
