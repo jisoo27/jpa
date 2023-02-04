@@ -13,14 +13,17 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedQuery(
+        name = "Member.findByUsername",
+        query = "select m from Member m where m.username = :username"
+)
 public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "USERNAME")
-    private String name;
+    private String username;
 
     //Period
     @Embedded
@@ -59,7 +62,7 @@ public class Member extends BaseEntity{
     public String toString() {
         return "Member{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
