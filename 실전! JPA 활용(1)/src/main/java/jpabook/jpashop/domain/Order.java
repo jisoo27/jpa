@@ -35,5 +35,22 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    // == 연관관계 편의 메서드 <양방향일 경우 사용>(양쪽 세팅을 위한 것.이 메서드 하나로 완료)
+    // 이 편의 메서드의 위치는 양쪽 중 핵심적으로 controller 하는 쪽이 들고 있는 것이 좋다.
+    public void setMember(Member meber) {
+        this.member = meber;
+        meber.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
+
 
 }
