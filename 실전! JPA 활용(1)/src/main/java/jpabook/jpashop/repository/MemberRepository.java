@@ -1,10 +1,10 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 // 스프링 부트의 기본적 동작방식은
@@ -12,10 +12,11 @@ import java.util.List;
 // 그래서 스프링 빈으로 자동 등록하게 된다.
 
 @Repository // 컴포넌트 스캔의 대상이 되서
+@RequiredArgsConstructor
 public class MemberRepository {
 
-    @PersistenceContext // 스프링이 이 엔티티매니저를 만들어서 주입해준다(injection)
-    private EntityManager em;
+    //@PersistenceContext // 스프링이 이 엔티티매니저를 만들어서 주입해준다(injection)
+    private final EntityManager em;
 
     public void save(Member member) {
         em.persist(member);
