@@ -1,6 +1,8 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.dto.ItemUpdateDto;
 import jpabook.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,13 @@ public class ItemService { // 이렇게 repository 에 위임만 할 경우 꼭 
     @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
+    }
+
+    @Transactional
+    public void updateItem(Long itemId, ItemUpdateDto updateDto) { // 변경 감지 기능
+        Book item = (Book) itemRepository.findOne(itemId);// id로 찾아온 findItem 은 영속상태이다.
+        item.updateBook(updateDto);
+         // 로직이 끝나는 시점에 @Transactional 에 의해 commit 이 되고 flush() (변경된것들을 다 찾아 db 에 쿼리를 날려준다.)
     }
 
     public List<Item> findItems() {
