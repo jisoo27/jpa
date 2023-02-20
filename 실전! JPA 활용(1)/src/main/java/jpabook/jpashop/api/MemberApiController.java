@@ -4,12 +4,12 @@ import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,6 +51,34 @@ public class MemberApiController {
         Member findMember = memberService.findOne(id);
         return new UpdateMemberResponse(id, findMember.getName());
     }
+
+    @GetMapping("/api/v1/members")
+    public List<Member> membersV1() {
+        return memberService.findAll(); // 엔티티를 직접적으로 노출시키는 것은 좋은 방법이 아니다. 필요하지 않은 컬럼을 @JsonIgnore 로 포함시키지 않을 수 있지만, api 는 다양하게 존재할 수 있기 때문에 복잡해진다.
+    }
+
+    @GetMapping("/api/v2/members")
+    public Result memberV2() {
+        List<Member> findMembers = memberService.findAll();
+        List<MemberDto> collect = findMembers.stream()
+                .map(member -> new MemberDto(member.getName()))
+                .collect(Collectors.toList());
+        return new Result(collect); // 유연성이 떨어지지 않도록 한번 감싸주어야 한다.
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class MemberDto {
+        private String name; // 내가 스펙에 노출할것만 담는것이 좋다.(꼭 필요한 것만!)
+    }
+
+
 
     @Data
     static class CreateMemberRequest {
