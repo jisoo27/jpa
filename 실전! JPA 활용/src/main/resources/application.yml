@@ -1,5 +1,13 @@
 spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/jpashop;
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+
   jpa:
+    database: h2
     properties:
       hibernate:
         format_sql: true
