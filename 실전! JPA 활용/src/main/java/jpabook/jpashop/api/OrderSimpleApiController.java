@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 * Order -> Delivery
 * */
 
+// 응답의 경우 List로 응답하지말고 response로 한번 감싸서 내보내야 한다.
+
 
 @RestController
 @RequiredArgsConstructor
@@ -47,6 +49,14 @@ public class OrderSimpleApiController {
                 .map(order -> new SimpleOrderDto(order))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3() {
+        return orderRepository.findAllWithMemberDelivery().stream()
+        .map(order -> new SimpleOrderDto(order))
+        .collect(Collectors.toList());
+    }
+
 
     @Data
     static class SimpleOrderDto { // api 스펙을 명확하게 규정해야 한다.

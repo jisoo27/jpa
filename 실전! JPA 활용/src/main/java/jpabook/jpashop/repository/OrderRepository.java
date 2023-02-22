@@ -49,4 +49,16 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+
+    public List<Order> findAllWithMemberDelivery() {
+        // fetch join 을 사용하기 (100 % 이해해서 사용하기!!)
+        // order를 조회하면서 select절에서 member와 delivery 를 join 하여 한번에 다 가져오는 것
+        // 한번 쿼리로 order member delivery 를 join 한 다음 select 절에 다 넣고 한번에 가져오는 것이다.
+        // 이 경우 member 와 delivery 가 lazy로 되어 있지만 다 무시하고
+        // 진짜 객체의 값을 다 채워서 가져오게 된다.
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class).getResultList();
+    }
 }
