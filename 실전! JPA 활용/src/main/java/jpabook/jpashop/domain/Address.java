@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
+public class Address { // Value Object : 하나의 타입이라고 생각하면 된다.
 
     private String city;
     private String street;
