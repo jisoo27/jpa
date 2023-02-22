@@ -61,4 +61,15 @@ public class OrderRepository {
                         " join fetch o.member m" +
                         " join fetch o.delivery d", Order.class).getResultList();
     }
+
+    public List<OrderSimpleQueryDto> findOrderDtos() {
+        // 필요한 것 만 가져옴
+        // 쿼리를 내가 직접 가져오기 때문
+        // V4 가 V3 보다 더 좋은 것은 아님 둘은 우열을 가릴 수 없다.
+        return em.createQuery(
+                "select new jpabook.jpashop.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) " +
+                " from Order o" +
+                " join o.member m" +
+                " join o.delivery d", OrderSimpleQueryDto.class).getResultList();
+    }
 }
