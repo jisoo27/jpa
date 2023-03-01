@@ -7,6 +7,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -29,6 +31,22 @@ class MemberRepositoryTest {
 
         assertThat(findMember).isEqualTo(member); // findMember == member
         // 같은 트랜잭션 안에서는 영속성 컨텍스트의 동일성을 보장한다 => 저장한 member 나 조회한 member 나 같은 트랜잭션에서 비교하면 같은 인스턴스임을 보장
+    }
+
+    @Test
+    void findByUsernameAndAgeGreaterThan() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("AAA", 20);
+
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> result = memberRepository.findByUsernameAndAgeGreaterThan("AAA", 15);
+
+        assertThat(result.get(0).getUsername()).isEqualTo("AAA");
+        assertThat(result.get(0).getAge()).isEqualTo(20);
+        assertThat(result.size()).isEqualTo(1);
+
     }
 
 }
