@@ -10,6 +10,8 @@ import static javax.persistence.FetchType.*;
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // JPA 는 파라미터가 없는 생성자가 필요한 access level 은 protected 까지만 가능
 @ToString(of = {"id", "username", "age"})
+@NamedQuery(name = "Member.findByUsername",
+query = "select m from Member m where m.username = :username")
 public class Member {
 
     @Id
