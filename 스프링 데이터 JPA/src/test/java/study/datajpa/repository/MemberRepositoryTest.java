@@ -57,7 +57,7 @@ class MemberRepositoryTest {
     }
 
     @Test
-    public void testNamedQuery() {
+    void testNamedQuery() {
         Member m1 = new Member("AAA", 10);
         Member m2 = new Member("BBB", 20);
 
